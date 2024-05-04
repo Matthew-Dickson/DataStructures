@@ -20,7 +20,7 @@ class ArrayList {
         const ArrayList<T>& operator=(const ArrayList<T>&);
         friend std::ostream& operator<<(std::ostream& os, const ArrayList<T>& arrayList) {
             for (int i = 0; i < arrayList.length; ++i) {
-                os << "Item " << i << ": " << arrayList.container[i] << std::endl;
+                os << "Item " << i << ": " << arrayList.RetrieveAt(i) << std::endl;
             }
             return os;
         }
