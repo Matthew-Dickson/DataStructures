@@ -3,11 +3,12 @@
 
 #include <functional>
 #include <ostream>
-#include "SortFunctions.h"
-#include "SearchFunctions.h"
+#include "../Common/SortFunctions.h"
+#include "../Common/SearchFunctions.h"
+#include "../Common/Container.h"
 
 template <class T>
-class ArrayList {
+class ArrayList : public Container<T> {
     public:
         //TODO Should properly add a iterator
         //TODO Pull out common features for containers
@@ -25,18 +26,18 @@ class ArrayList {
             return os;
         }
 
-        bool IsEmpty() const;
-        int Size() const;
-        void Print() const;
-        ArrayList<T>& Add(const T& item);
-        ArrayList<T>& Add(int index, const T& item);
-        ArrayList<T>& Remove(int index);
-        ArrayList<T>& Clear();
-        ArrayList<T>& ReplaceAt(int index, const T& item);
-        T RetrieveAt(int index) const;
+        bool IsEmpty() const override;
+        int Size() const override;
+        void Print() const override;
+        ArrayList<T>& Add(const T& item) override;
+        ArrayList<T>& Add(int index, const T& item) override;
+        ArrayList<T>& Remove(int index) override;
+        ArrayList<T>& Clear() override;
+        ArrayList<T>& ReplaceAt(int index, const T& item) override;
+        T RetrieveAt(int index) const override;
 
-        ArrayList<T>& Sort(std::function<ArrayList<T>&(ArrayList<T>&)> sortPolicy = SortFunctions<T, ArrayList<T>>::BubbleSort);
-        int Search(const T& element, std::function<int(const ArrayList<T>&, const T&)> searchPolicy = SearchFunctions<T, ArrayList<T>>::LinearSearch) const;
+        Container<T>& Sort(std::function<Container<T>&(Container<T>&)> sortPolicy = SortFunctions<T, Container<T>>::BubbleSort) override;
+        int Search(const T& element, std::function<int(const Container<T>&, const T&)> searchPolicy = SearchFunctions<T, Container<T>>::LinearSearch) const override;
 
     protected:
         T *container;

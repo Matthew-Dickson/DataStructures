@@ -1,6 +1,6 @@
 #include <iostream>
-#include "SearchFunctions.h"
-#include "SortFunctions.h"
+#include "../Common/SearchFunctions.h"
+#include "../Common/SortFunctions.h"
 #include "ArrayList.h"
 
 using namespace std;
@@ -27,7 +27,7 @@ int main()
     unorderedList.Add(23);
 
     int elementToFind = 5;
-    int index = orderedList.Search(elementToFind,SearchFunctions<int, ArrayList<int>>::LinearSearch);
+    int index = orderedList.Search(elementToFind,SearchFunctions<int, Container<int>>::LinearSearch);
     if (index != -1) {
         std::cout << "Element " << elementToFind << " found at index " << index << std::endl;
     } else {

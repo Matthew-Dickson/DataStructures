@@ -107,14 +107,14 @@ ArrayList<T>& ArrayList<T>::Clear() {
 }
 
 template <class T>
-int ArrayList<T>::Search(const T& element, std::function<int(const ArrayList<T>&, const T&)> searchPolicy) const {
+int ArrayList<T>::Search(const T& element, std::function<int(const Container<T>&, const T&)> searchPolicy) const {
     return searchPolicy(*this, element); // Return -1 if the element is not found
 }
 
 
 template <class T>
-ArrayList<T>& ArrayList<T>::Sort(std::function<ArrayList<T>&(ArrayList<T>&)> sortPolicy) {
-    return sortPolicy(*this); // Return sorted container
+Container<T>& ArrayList<T>::Sort(std::function<Container<T>&(Container<T>&)> sortPolicy) {
+    return sortPolicy(*this);  // Return sorted container
 }
 
 template <class T>

@@ -6,7 +6,7 @@ class SearchFunctions {
     public:
         static int LinearSearch(const N& container, const T& element) {
             for (int i = 0; i < container.Size(); ++i) {
-                if (container[i] == element) {
+                if (container.RetrieveAt(i) == element) {
                     return i;
                 }
             }
