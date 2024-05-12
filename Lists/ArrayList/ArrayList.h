@@ -17,6 +17,11 @@ class ArrayList : public Container<T> {
         ArrayList(const ArrayList<T>& arraylist);
         ~ArrayList();
 
+        class ArrayListIterator;
+        using iterator = ArrayListIterator;
+        iterator Begin(); 
+        iterator End(); 
+
         const T& operator[](int index) const;
         const ArrayList<T>& operator=(const ArrayList<T>&);
         friend std::ostream& operator<<(std::ostream& os, const ArrayList<T>& arrayList) {
@@ -39,16 +44,29 @@ class ArrayList : public Container<T> {
         Container<T>& Sort(std::function<Container<T>&(Container<T>&)> sortPolicy = SortFunctions<T, Container<T>>::BubbleSort) override;
         int Search(const T& element, std::function<int(const Container<T>&, const T&)> searchPolicy = SearchFunctions<T, Container<T>>::LinearSearch) const override;
 
-    protected:
-        T *container;
-        int capacity;
-        int length;
-
     private:
         void Resize();
         void CheckIndex(int index) const;
         ArrayList<T>& DeepCopy(const ArrayList<T>&);
 
+};
+
+
+template<typename T>
+class ArrayList<T>::ArrayListIterator {
+public:
+    // Constructor
+    ArrayListIterator(const ArrayList<T>& list, int index);
+
+    // Member functions
+    T operator*() const;
+    ArrayListIterator& operator++();
+    bool operator==(const ArrayListIterator& other) const;
+    bool operator!=(const ArrayListIterator& other) const;
+
+private:
+    const ArrayList<T>& container;
+    int index;
 };
 
 #endif // ARRAYLIST_H_INCLUDED

@@ -7,8 +7,9 @@ using namespace std;
 
 int main()
 {
-    ArrayList<int> orderedList; //look at variadic templates for easier initialization
+    ArrayList<int> orderedList; // look at variadic templates for easier initialization
     ArrayList<int> unorderedList;
+    ArrayList<int>::iterator iter = orderedList.Begin();
 
     orderedList.Add(1);
     orderedList.Add(2);
@@ -17,6 +18,15 @@ int main()
     orderedList.Add(5);
     orderedList.Add(6);
     orderedList.Add(8);
+
+    std::cout << "Loop through container using iterator:" << endl;
+    while (iter != orderedList.End())
+    {
+        int element = *iter;
+        std::cout << element << endl;
+        ++iter;
+    }
+    std::cout << endl;
 
     unorderedList.Add(2321);
     unorderedList.Add(222);
@@ -27,10 +37,13 @@ int main()
     unorderedList.Add(23);
 
     int elementToFind = 5;
-    int index = orderedList.Search(elementToFind,SearchFunctions<int, Container<int>>::LinearSearch);
-    if (index != -1) {
+    int index = orderedList.Search(elementToFind, SearchFunctions<int, Container<int>>::LinearSearch);
+    if (index != -1)
+    {
         std::cout << "Element " << elementToFind << " found at index " << index << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Element " << elementToFind << " not found" << std::endl;
     }
 

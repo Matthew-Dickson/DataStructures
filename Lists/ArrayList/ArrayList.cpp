@@ -7,14 +7,14 @@ template <class T>
 ArrayList<T>::ArrayList() {
     this->capacity = 1;
     this->length = 0;
-    this->container = new T[capacity];
+    this->container = new T[this->capacity];
 }
 
 template <class T>
 ArrayList<T>::ArrayList(int length) {
     this->capacity = length;
     this->length = 0;
-    this->container = new T[length];
+    this->container = new T[this->length];
 }
 
 template <class T>
@@ -22,6 +22,15 @@ ArrayList<T>::ArrayList(const ArrayList<T>& arraylist) {
     DeepCopy(arraylist);
 }
 
+template <class T>
+typename ArrayList<T>::iterator ArrayList<T>::Begin() {
+    return ArrayListIterator(*this, 0);
+}
+
+template <class T>
+typename ArrayList<T>::iterator ArrayList<T>::End() {
+    return ArrayListIterator(*this, this->length);
+}
 
 // Destructor
 template <class T>
@@ -90,10 +99,10 @@ template <class T>
 ArrayList<T>& ArrayList<T>::Remove(int index) {
     //TODO probably should also add reduce policy so that containers space doesnt take too much memory
     CheckIndex(index);
-    for (int i = index; i < length - 1; ++i) {
+    for (int i = index; i < this->length - 1; ++i) {
         this->container[i] = this->container[i + 1];  // Shift elements to the left to fill the gap
     }
-    length--;
+    this->length--;
     return *this;
 }
 
@@ -160,6 +169,32 @@ ArrayList<T>& ArrayList<T>::DeepCopy(const ArrayList<T>& arraylist){
     this->length = arraylist.length;
 
     return *this;
+}
+
+
+
+template<typename T>
+ArrayList<T>::ArrayListIterator::ArrayListIterator(const ArrayList<T>& list, int index) : container(list), index(index) {}
+
+template<typename T>
+T ArrayList<T>::ArrayListIterator::operator*() const {
+    return container.RetrieveAt(index); 
+}
+
+template<typename T>
+typename ArrayList<T>::ArrayListIterator& ArrayList<T>::ArrayListIterator::operator++() {
+    ++index;
+    return *this;
+}
+
+template<typename T>
+bool ArrayList<T>::ArrayListIterator::operator==(const ArrayListIterator& other) const {
+    return index == other.index;
+}
+
+template<typename T>
+bool ArrayList<T>::ArrayListIterator::operator!=(const ArrayListIterator& other) const {
+    return !(*this == other);
 }
 
 
