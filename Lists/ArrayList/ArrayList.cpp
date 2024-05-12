@@ -3,49 +3,49 @@
 #include "ArrayList.h"
 
 // Constructors
-template <class T>
+template <typename T>
 ArrayList<T>::ArrayList() {
     this->capacity = 1;
     this->length = 0;
     this->container = new T[this->capacity];
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>::ArrayList(int length) {
     this->capacity = length;
     this->length = 0;
     this->container = new T[this->length];
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>::ArrayList(const ArrayList<T>& arraylist) {
     DeepCopy(arraylist);
 }
 
-template <class T>
+template <typename T>
 typename ArrayList<T>::iterator ArrayList<T>::Begin() {
     return ArrayListIterator(*this, 0);
 }
 
-template <class T>
+template <typename T>
 typename ArrayList<T>::iterator ArrayList<T>::End() {
     return ArrayListIterator(*this, this->length);
 }
 
 // Destructor
-template <class T>
+template <typename T>
 ArrayList<T>::~ArrayList() {
     delete[] this->container;
 }
 
 
 // Operators
-template <class T>
+template <typename T>
 const T& ArrayList<T>::operator[](int index) const {
     return this->container[index];
 }
 
-template <class T>
+template <typename T>
 const ArrayList<T>& ArrayList<T>::operator=(const ArrayList<T>& arraylist) {
     if (this == &arraylist) {
         return *this; // Return current object
@@ -56,22 +56,22 @@ const ArrayList<T>& ArrayList<T>::operator=(const ArrayList<T>& arraylist) {
 }
 
 // Public functions
-template <class T>
+template <typename T>
 bool ArrayList<T>::IsEmpty() const {
     return (this->length == 0);
 }
 
-template <class T>
+template <typename T>
 int ArrayList<T>::Size() const {
     return this->length;
 }
 
-template <class T>
+template <typename T>
 void ArrayList<T>::Print() const {
     std::cout << *this << std::endl;
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::Add(const T& item) {
     if(this->length == this->capacity){
         this->Resize();
@@ -80,7 +80,7 @@ ArrayList<T>& ArrayList<T>::Add(const T& item) {
     return *this;
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::Add(int index, const T& item) {
     CheckIndex(index);
     if(this->length == this->capacity){ // Check if we have to grow the storage
@@ -95,7 +95,7 @@ ArrayList<T>& ArrayList<T>::Add(int index, const T& item) {
     return *this;
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::Remove(int index) {
     //TODO probably should also add reduce policy so that containers space doesnt take too much memory
     CheckIndex(index);
@@ -106,7 +106,7 @@ ArrayList<T>& ArrayList<T>::Remove(int index) {
     return *this;
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::Clear() {
     delete[] this->container;
     this->container = nullptr; //To prevent dangled pointer
@@ -115,24 +115,24 @@ ArrayList<T>& ArrayList<T>::Clear() {
     return *this;
 }
 
-template <class T>
+template <typename T>
 int ArrayList<T>::Search(const T& element, std::function<int(const Container<T>&, const T&)> searchPolicy) const {
     return searchPolicy(*this, element); // Return -1 if the element is not found
 }
 
 
-template <class T>
+template <typename T>
 Container<T>& ArrayList<T>::Sort(std::function<Container<T>&(Container<T>&)> sortPolicy) {
     return sortPolicy(*this);  // Return sorted container
 }
 
-template <class T>
+template <typename T>
 T ArrayList<T>::RetrieveAt(int index) const {
     CheckIndex(index);
     return this->container[index];
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::ReplaceAt(int index, const T& element) {
     CheckIndex(index);
     this->container[index] = element;
@@ -140,7 +140,7 @@ ArrayList<T>& ArrayList<T>::ReplaceAt(int index, const T& element) {
 }
 
 // Private functions
-template <class T>
+template <typename T>
 void ArrayList<T>::Resize() {
     this->capacity = (this->capacity == 0) ? 1 : (this->capacity * 2);
     T *tempContainer = new T[this->capacity];
@@ -151,14 +151,14 @@ void ArrayList<T>::Resize() {
     this->container = tempContainer;
 }
 
-template <class T>
+template <typename T>
 void ArrayList<T>::CheckIndex(int index) const {
     if (index < 0 || index >= this->length) {
         throw std::out_of_range("Index out of bounds");
     }
 }
 
-template <class T>
+template <typename T>
 ArrayList<T>& ArrayList<T>::DeepCopy(const ArrayList<T>& arraylist){
     this->container = new T[arraylist.capacity];
     for (int i = 0; i < arraylist.length; ++i) {

@@ -1,7 +1,7 @@
 #ifndef SEARCHFUNCTIONS_H_INCLUDED
 #define SEARCHFUNCTIONS_H_INCLUDED
 
-template<typename T, typename N>
+template<class T, class N>
 class SearchFunctions {
     public:
         static int LinearSearch(const N& container, const T& element) {

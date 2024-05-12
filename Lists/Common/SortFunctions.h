@@ -1,7 +1,7 @@
 #ifndef SORTFUNCTIONS_H_INCLUDED
 #define SORTFUNCTIONS_H_INCLUDED
 
-template<typename T, typename N>
+template<class T, class N>
 class SortFunctions {
     public:
         static N& BubbleSort(N& container) {
